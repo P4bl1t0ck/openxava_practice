@@ -1,0 +1,6 @@
+/*C2*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C3*/SET SCHEMA PUBLIC
+create table Factura_detalles (Factura_oid varchar(32) not null, cantidad integer not null, producto_numero integer)
+alter table Factura_detalles add constraint FKe3f314u9v7uw8aktwkjo8473t foreign key (producto_numero) references Producto
+alter table Factura_detalles add constraint FKpl16p1cpo7r84s75asx5db9nq foreign key (Factura_oid) references Factura
