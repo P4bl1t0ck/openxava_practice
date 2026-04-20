@@ -7,7 +7,6 @@
              
     <persistence-unit name="default">
     	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-    	<non-jta-data-source>java://comp/env/jdbc/FacturasDS</non-jta-data-source>
     	<class>org.openxava.session.GalleryImage</class>
     	<class>org.openxava.web.editors.DiscussionComment</class>
     	<class>com.openxava.naviox.model.ConfigurationRecord</class>
@@ -21,9 +20,18 @@
     	<class>com.openxava.naviox.model.SSORecord</class>
     	<class>com.openxava.naviox.model.User</class>
 		<class>com.openxava.naviox.model.LDAPConfiguration</class>
-        <properties>
-            <property name="javax.persistence.schema-generation.database.action" value="update"/>
-        </properties>
+		<class>com.tuempresa.Facturas.modelo.Cliente</class>
+		<class>com.tuempresa.Facturas.modelo.Prueba</class>
+		<properties>
+			<property name="javax.persistence.schema-generation.database.action" value="update"/>
+
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/openxava_db"/>
+			<property name="javax.persistence.jdbc.user" value="root"/>
+			<property name="javax.persistence.jdbc.password" value="1234"/>
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
+		</properties>
     </persistence-unit>
                     
     <!-- JUnit Hypersonic -->
@@ -41,9 +49,11 @@
     	<class>com.openxava.naviox.model.SSORecord</class>
     	<class>com.openxava.naviox.model.User</class>
 		<class>com.openxava.naviox.model.LDAPConfiguration</class>
-        <properties>
-			<property name="hibernate.connection.url" value="jdbc:hsqldb:hsql://localhost:1666"/>
-        </properties>
+		<class>com.tuempresa.Facturas.modelo.Prueba</class>
+		<!--Codigo para la conexion con la base de datos de MySQL-->
+		<properties>
+			<property name="javax.persistence.schema-generation.database.action" value="update"/>
+		</properties>
     </persistence-unit>    
     
 </persistence>
