@@ -19,13 +19,17 @@ import java.util.Collection;
         "detalles;" +
         "observaciones"
     )
-public class Factura {
+public class Factura extends Identificable{
+    /*Factura herededara la superclase de Identificable*/
+    /*
+    --Por lo tanto ya no es necesario los siguientes campos
     @Id
     @GeneratedValue(generator = "system-uuid")
     @Hidden
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(length = 32)
     String oid;
+    */
 
     @DefaultValueCalculator(CurrentYearCalculator.class)
     @Column(length = 4)

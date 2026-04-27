@@ -12,14 +12,15 @@ import java.util.Collection;
 @Entity
 @Getter
 @Setter
-public class Autor {
-
+public class Autor extends Identificable{
+    /*
+    --Ya no nesecitaremos estas columnas
     @Id @GeneratedValue(generator = "system-uuid")
     @Hidden
     @GenericGenerator(name = "system-uuid", strategy = "uuid2")
             @Column(length = 32)
     String oid;
-
+    */
     @Column(length = 50)
     String nombre;
 
