@@ -14,17 +14,7 @@ import javax.persistence.Id;
 @Getter @Setter
 /*Hacemos lo mismo con la siguientes entidades*/
 public class Categoria extends Identificable {
-    /*I hop its works*/
-    /*
 
-    --Comentamos el codigo correspondiente.
-    @Id
-    @Hidden
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name="system-uuid", strategy="uuid")
-    @Column(length = 32)
-    String oid;
-     */
     @Column(length = 50)
     String descripcion;
 }

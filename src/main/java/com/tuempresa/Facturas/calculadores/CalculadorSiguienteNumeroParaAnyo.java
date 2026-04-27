@@ -15,7 +15,7 @@ public class CalculadorSiguienteNumeroParaAnyo implements ICalculator {
     public Object calculate() throws Exception {
 
         Query query = XPersistence.getManager().createQuery(
-                "select max(f.numero) from Factura f where f.anyo = :anyo"
+                "select max(f.numero) from DocumentoComercial f where f.anyo = :anyo"
         );
 
         query.setParameter("anyo", anyo);
