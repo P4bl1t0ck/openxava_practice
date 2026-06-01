@@ -3,9 +3,7 @@ package com.tuempresa.Facturas.modelo;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
-import org.openxava.annotations.DescriptionsList;
-import org.openxava.annotations.Hidden;
-import org.openxava.annotations.Required;
+import org.openxava.annotations.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -24,6 +22,7 @@ public class RecetaItem {
 
     //Para que llame de las clases Productos  y ingrediente, los datos
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @DescriptionsList(descriptionProperties = "descripcion") //<-- asi concide con Producto
     private Producto producto;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -33,7 +32,10 @@ public class RecetaItem {
     @Required
     private BigDecimal cantidadGramos;
 
-    //
+    @ReadOnly
+    @Stereotype("MONEY")
+    @Depends("cantidadGramos")
+    //Edicion de el getter de Costo Item
     public  BigDecimal  getCostoItem(){
         if (ingrediente != null && cantidadGramos != null){
             /*Aqui modificamos la funcion getter de CostoItem
