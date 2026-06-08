@@ -1,29 +1,29 @@
-package com.tuempresa.Facturas.modelo; // Conserva tu paquete actual
+package com.tuempresa.Facturas.modelo;
 
 import lombok.Getter;
 import lombok.Setter;
 import org.openxava.annotations.*;
 import javax.persistence.*;
-import java.math.BigDecimal;
+import java.math.*;
 import java.util.*;
 
 @Entity
 @Getter @Setter
-// Organizamos la vista para que muestre lo de tus tutoriales y agregue una pesta馻 para la Receta de OptiPan
-@View(members =
-        "Datos Principales [ numero, descripcion; precio, categoria; autor ]; " +
-                "Multimedia y Notas { fotos; observaciones }; " +
-                "Componentes OptiPan { recetaItems; costoTotal }"
+@View(members = 
+    "Datos Principales [ numero, descripcion; precio, categoria; autor ]; " +
+    "Multimedia y Notas { fotos; observaciones }; " +
+    "Componentes OptiPan { recetaItems; costoTotal }; " +
+    "Algoritmo Caja Blanca { simulacionViabilidad }" // <-- Pesta帽a para tu tarea
 )
 public class Producto {
 
     @Id
     @Column(length = 6)
-    int numero; // Se queda tal cual como en tu tutorial
+    int numero;
 
     @Column(length = 50)
     @Required
-    String descripcion; // Se queda como descripcion
+    String descripcion;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @DescriptionsList(descriptionProperties = "descripcion")
@@ -49,7 +49,7 @@ public class Producto {
 
     @ReadOnly
     @Stereotype("MONEY")
-    public BigDecimal getCostoTotal() { // Calcula el costo din醡icamente en base a los ingredientes
+    public BigDecimal getCostoTotal() {
         BigDecimal total = BigDecimal.ZERO;
         if (recetaItems != null) {
             for (RecetaItem item : recetaItems) {
@@ -59,5 +59,50 @@ public class Producto {
             }
         }
         return total;
+    }
+
+    // =========================================================================
+    // ALGORITMO DE L脫GICA DE NEGOCIO: EVALUACI脫N DE SUFICIENCIA DE MATERIA PRIMA
+    // =========================================================================
+    //String respuesta = "Resultado de Simulaci贸n (Lote Proyectado: 100 unidades)";
+    @Transient
+    @TextArea
+    @ReadOnly
+    //@Label("Resultado de Simulaci贸n -Lote Proyectado: 100 unidades-")
+    public String getSimulacionViabilidad() {
+        int cantidadSugerida = 100; // Lote de prueba estandarizado
+        int cantidadFinal = cantidadSugerida;
+        String mensaje = "PRODUCCI脫N VIABLE: El stock actual de materias primas cubre la demanda proyectada.";
+
+        // Cobertura de condiciones: Validaci贸n de seguridad interna
+        if (this.recetaItems == null || this.recetaItems.isEmpty()) {
+            return "ERROR CR脥TICO: No se puede evaluar la viabilidad. El producto no tiene una receta base asignada.";
+        }
+
+        // Bucle estructural (Iteraci贸n sobre la receta del producto)
+        for (RecetaItem item : this.recetaItems) {
+            if (item.getIngrediente() != null && item.getCantidadGramos() != null 
+                && item.getIngrediente().getStockActual() != null) {
+                
+                // Calcular gramos necesarios para producir 100 unidades de este pan
+                BigDecimal gramosRequeridos = item.getCantidadGramos().multiply(new BigDecimal(cantidadSugerida));
+                BigDecimal stockDisponible = item.getIngrediente().getStockActual();
+
+                // Condici贸n de desabastecimiento (Camino alterno de Caja Blanca)
+                if (stockDisponible.compareTo(gramosRequeridos) < 0) {
+                    // Calcular la capacidad real del ingrediente cuello de botella
+                    int maxProducibleConInsumo = stockDisponible.divide(item.getCantidadGramos(), 0, RoundingMode.DOWN).intValue();
+
+                    // Identificar si este insumo es el limitante m谩s cr铆tico
+                    if (maxProducibleConInsumo < cantidadFinal) {
+                        cantidadFinal = maxProducibleConInsumo;
+                        mensaje = "WARNING OPERATIVO: Stock insuficiente de '" + item.getIngrediente().getNombre() + 
+                                  "'. La predicci贸n original de " + cantidadSugerida + " unidades ha sido truncada. " +
+                                  "Producci贸n m谩xima real permitida: " + cantidadFinal + " unidades.";
+                    }
+                }
+            }
+        }
+        return mensaje;
     }
 }
