@@ -12,14 +12,8 @@ import javax.persistence.Id;
 
 @Entity
 @Getter @Setter
-public class Categoria {
-    /*I hop its works*/
-    @Id
-    @Hidden
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name="system-uuid", strategy="uuid")
-    @Column(length = 32)
-    String oid;
+/*Hacemos lo mismo con la siguientes entidades*/
+public class Categoria extends Identificable {
 
     @Column(length = 50)
     String descripcion;

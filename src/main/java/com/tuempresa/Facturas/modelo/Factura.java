@@ -1,45 +1,26 @@
 package com.tuempresa.Facturas.modelo;
 
-import com.tuempresa.Facturas.calculadores.CalculadorSiguienteNumeroParaAnyo;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
-import org.openxava.annotations.*;
-import org.openxava.calculators.CurrentYearCalculator;
+import org.openxava.annotations.CollectionView;
+import org.openxava.annotations.View;
 
-import javax.persistence.*;
-import java.time.LocalDate;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import java.util.Collection;
 
-@Entity @Getter
-@Setter
-public class Factura {
-    @Id
-    @GeneratedValue(generator = "system-uuid")
-    @Hidden
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
-    @Column(length = 32)
-    String oid;
+@Entity @Getter @Setter
+@View(extendsView = "super.DEFAULT",
+        members= "pedidos(pedidos)"
+)
+@View(name="SinClientesNiPedidos",
+ members =
+         "anyo, numero, fecha;"
+                 +"detalles;"+
+"observaciones")
+public class Factura extends DocumentoComercial{
 
-    @DefaultValueCalculator(CurrentYearCalculator.class)
-    @Column(length = 4)
-    int anyo;
-    @Column(length = 6)
-    @DefaultValueCalculator(value = CalculadorSiguienteNumeroParaAnyo.class,
-    properties = @PropertyValue(name = "anyo"))
-    int numero;
-
-    @Required
-    @DefaultValueCalculator(CurrentYearCalculator.class)
-    LocalDate fecha;
-
-    @ManyToOne(fetch = FetchType.LAZY,optional = false)
-    Cliente cliente;
-
-    @ElementCollection
-    @ListProperties("producto.numero, producto.descripcion,cantidad")
-    Collection<Detalle> detalles;
-
-    @Stereotype("MEMO")
-    String observaciones;
+    @OneToMany(mappedBy = "factura")
+    @CollectionView("SinClientesFactura")
+    Collection<Pedido> pedidos;
 }
