@@ -3,33 +3,23 @@
 <!DOCTYPE controladores SYSTEM "dtds/controladores.dtd">
 
 <!-- 
-Documentación sobre controladores: 
+Documentaciï¿½n sobre controladores: 
 https://www.openxava.org/OpenXavaDoc/docs/controllers_es.html
 
 Controladores por defecto, incluidos en OpenXava (puedes extender de ellos):
 https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/xava/default-controllers.xml
  
-Ejemplos de controladores (de la aplicación de pruebas):
+Ejemplos de controladores (de la aplicaciï¿½n de pruebas):
 https://github.com/openxava/openxava/blob/master/openxavatest/src/main/resources/xava/controllers.xml
 -->
 
 <controladores>
-    
-    <!-- Variable de entorno: 
-    <var-entorno nombre="Facturas_ANYO_DEFECTO" valor="2015"/>
-    -->
-    
-    <!-- Objeto de sesión:
-    <Objeto nombre="Facturas_anyoActivo" clase="java.lang.Integer" valor="2015" 
-            ambito="global"/>
-    -->
-    
-    <!-- Controlador:
-    <controlador nombre="Profesor">
+
+    <!-- OptiPan: confirma una orden de horneado y descuenta el inventario (US-003) -->
+    <controlador nombre="Horneado">
         <hereda-de controlador="Typical"/>
-        <accion nombre="new" icono="plus-box-multiple" atajo-de-teclado="Control N" 
-                clase="acciones.CrearProfesor"/>        
+        <accion nombre="confirmarHorneado" icono="check-bold" modo="detail"
+                clase="com.tuempresa.Facturas.acciones.ConfirmarHorneadoAccion"/>
     </controlador>
-    -->
-    
+
 </controladores>

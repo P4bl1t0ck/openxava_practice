@@ -5,20 +5,18 @@
 <aplicacion nombre="Facturas"> 
 	
 	<!--
-	Un módulo por defecto se asume para cada
+	Un mï¿½dulo por defecto se asume para cada
 	controlador en <modulo-defecto/> 
 	-->
 	<modulo-defecto>		  
 		<controlador nombre="Typical"/>		
 	</modulo-defecto>
 	
-	<!--
-	Podemos definir módulos adicionales, por ejemplo: 	
-	<modulo nombre="ProfesorSoloLectura">
-		<modelo nombre="Profesor"/>
-		<controlador nombre="Print"/>
-	</modulo>		
-	-->	  
-		
+	<!-- OptiPan: mÃ³dulo de Producto con la acciÃ³n de confirmaciÃ³n de horneado -->
+	<modulo nombre="Producto">
+		<modelo nombre="Producto"/>
+		<controlador nombre="Horneado"/>
+	</modulo>
+
 </aplicacion>
 

@@ -1,5 +1,7 @@
 package com.tuempresa.Facturas.modelo;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.openxava.annotations.Hidden;
 import org.openxava.annotations.Required;
@@ -9,56 +11,55 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 
+/**
+ * Entidad maestra de materia prima. Controla las existencias físicas en bodega
+ * (costo unitario, stock actual y stock mínimo de reposición).
+ *
+ * Cumple AGENTS.md: getters/setters generados por Lombok y campos con acceso de paquete.
+ */
 @Entity
-/*Nuestra vista personalizada, aprovechamos, para evitar
-* el copia y pega de codigo sin necesidad*/
-@View(members = "codigo, nombre; unidadMedida, costoUnitario; stockActual, esInventariable")
+@Getter
+@Setter
+@View(members = "codigo, nombre; unidadMedida, costoUnitario; stockActual, stockMinimo; esInventariable")
 public class Ingrediente {
-    /*Nuestras caracteristicas de nuestros ingredientes*/
+
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid2")
     @Column(length = 36)
     @Hidden
-    private String id;
+    String id;
 
     @Column(length = 10, nullable = false, unique = true)
     @Required
-    private String codigo;
+    String codigo;
 
     @Column(length = 50, nullable = false)
     @Required
-    private String nombre;
+    String nombre;
 
     @Column(length = 15, nullable = false)
     @Required
-    private String unidadMedida;
-    //Clar que nos basaremos en gramos, o unidades
+    String unidadMedida; // Base en gramos o unidades
 
     @Required
-    private BigDecimal costoUnitario;
-    private BigDecimal stockActual;
-    private boolean esInventariable;
+    @DecimalMin("0.01") // Caja Negra: el costo unitario no puede ser negativo ni cero
+    @Digits(integer = 8, fraction = 4)
+    BigDecimal costoUnitario;
 
-    /*Nuestros getter y setters, los generamos usando herramientas
-    * de el Intelig Idea, clave aclarar, por lo viejo de algunos
-    * videos de openxava, algunas funciones, como refactores, fueron
-    * por investigaci�n propia. Just saying~. */
+    @Required
+    @PositiveOrZero // Caja Negra: el stock físico nunca es negativo (CB-006: además obligatorio)
+    @Digits(integer = 8, fraction = 4)
+    BigDecimal stockActual;
 
-    public boolean isEsInventariable() {return esInventariable;}
-    public void setEsInventariable(boolean esInventariable) {this.esInventariable = esInventariable;}
-    public BigDecimal getStockActual() {return stockActual;}
-    public void setStockActual(BigDecimal stockActual) {this.stockActual = stockActual;}
-    public String getId() {return id;}
-    public void setId(String id) {this.id = id;}
-    public String getCodigo() {return codigo;}
-    public void setCodigo(String codigo) {this.codigo = codigo;}
-    public String getNombre() {return nombre;}
-    public void setNombre(String nombre) {this.nombre = nombre;}
-    public String getUnidadMedida() {return unidadMedida;}
-    public void setUnidadMedida(String unidadMedida) {this.unidadMedida = unidadMedida;}
-    public BigDecimal getCostoUnitario() {return costoUnitario;}
-    public void setCostoUnitario(BigDecimal costoUnitario) {this.costoUnitario = costoUnitario;}
+    @PositiveOrZero // Umbral de reposición; base para futuras alertas de stock
+    @Digits(integer = 8, fraction = 4)
+    BigDecimal stockMinimo;
+
+    boolean esInventariable;
 }
