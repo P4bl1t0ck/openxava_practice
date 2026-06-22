@@ -5,13 +5,11 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-# 1. Instalar y configurar Java
-- task: UseJava@1
-  displayName: 'Configurar JDK 11'
-  inputs:
-    versionSpec: '11'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: false
+# 1. Configurar la versión de Java preinstalada en Ubuntu
+- script: |
+    sudo update-java-alternatives --set /usr/lib/jvm/java-1.11.0-openjdk-amd64 || echo "Usando versión por defecto de Java"
+    java -version
+  displayName: 'Verificar y activar JDK 11'
 
 # 2. Empaquetar la aplicación sin ejecutar las pruebas todavía
 - script: |
