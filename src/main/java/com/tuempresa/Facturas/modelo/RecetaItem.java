@@ -6,6 +6,8 @@ import org.hibernate.annotations.GenericGenerator;
 import org.openxava.annotations.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Digits;
 import java.math.BigDecimal;
 
 @Entity
@@ -18,33 +20,34 @@ public class RecetaItem {
     @GenericGenerator(name = "system-uuid", strategy = "uuid2")
     @Column(length = 36)
     @Hidden //No es nesecario que sepa esto el cliente
-    public  String id;
+    String id; // acceso de paquete (AGENTS.md); antes era 'public'
 
     //Para que llame de las clases Productos  y ingrediente, los datos
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @DescriptionsList(descriptionProperties = "descripcion") //<-- asi concide con Producto
-    private Producto producto;
+    Producto producto;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @DescriptionsList(descriptionProperties = "nombre")
-    private Ingrediente ingrediente;
+    Ingrediente ingrediente;
 
     @Required
-    private BigDecimal cantidadGramos;
+    @DecimalMin("0.0001") // Caja Negra: la dosis de receta debe ser estrictamente positiva
+    @Digits(integer = 8, fraction = 4)
+    BigDecimal cantidadGramos;
 
     @ReadOnly
     @Stereotype("MONEY")
     @Depends("cantidadGramos")
     //Edicion de el getter de Costo Item
     public  BigDecimal  getCostoItem(){
-        if (ingrediente != null && cantidadGramos != null){
-            /*Aqui modificamos la funcion getter de CostoItem
-            * donde evaluaremos y se calculara el costo unitario
-            * por la cantidad de gramos de los ingredientes
-            * contal de cualquiera de los dos sea distinto a nulo*/
-            return ingrediente.getCostoUnitario().multiply(cantidadGramos);
+        /* Programación defensiva (CB-003): se verifica además que costoUnitario no sea null
+         * antes de invocar multiply(), evitando un NullPointerException silencioso cuando el
+         * ingrediente existe pero su costo aún no fue cargado en bodega. */
+        if (ingrediente == null || cantidadGramos == null || ingrediente.getCostoUnitario() == null){
+            return BigDecimal.ZERO;
         }
-        return  BigDecimal.ZERO;
+        return ingrediente.getCostoUnitario().multiply(cantidadGramos);
     }
 
 
