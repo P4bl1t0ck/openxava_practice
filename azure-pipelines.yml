@@ -29,12 +29,12 @@ steps:
 - script: |
     mvn test
   displayName: 'Ejecutar Pruebas Automatizadas (JUnit)'
-  continueOnError: true # Permite que el pipeline continúe para publicar los resultados aunque falle una prueba
+  continueOnError: true
 
 # 5. Publicar los resultados en el panel de Azure DevOps
 - task: PublishTestResults@2
   displayName: 'Publicar Resultados en Azure Test Plans'
   inputs:
-    testResultsFormat: 'JUnit' # Maven Surefire exporta nativamente en formato JUnit XML
+    testResultsFormat: 'JUnit'
     testResultsFiles: '**/target/surefire-reports/TEST-*.xml'
     failTaskOnFailedTests: true
