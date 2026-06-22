@@ -1,19 +1,40 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
-- master
+  - master
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: 'ubuntu-latest'
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+# 1. Instalar y configurar Java
+- task: UseJava@1
+  displayName: 'Configurar JDK 11'
+  inputs:
+    versionSpec: '11'
+    jdkArchitectureOption: 'x64'
+    publishJUnitResults: false
 
+# 2. Empaquetar la aplicación sin ejecutar las pruebas todavía
 - script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+    mvn clean package -DskipTests
+  displayName: 'Compilar y empaquetar la aplicación OpenXava'
+
+# 3. Iniciar el servidor embebido de OpenXava en segundo plano
+- script: |
+    nohup java -cp "target/Facturas/WEB-INF/classes:target/Facturas/WEB-INF/lib/*" com.tuempresa.Facturas.run.Facturas > openxava.log 2>&1 &
+    echo "Iniciando Tomcat embebido... Esperando 30 segundos para que esté completamente activo."
+    sleep 30
+  displayName: 'Arrancar servidor de Facturas (Background)'
+
+# 4. Ejecutar las pruebas automatizadas (ModuleTestBase)
+- script: |
+    mvn test
+  displayName: 'Ejecutar Pruebas Automatizadas (JUnit)'
+  continueOnError: true # Permite que el pipeline continúe para publicar los resultados aunque falle una prueba
+
+# 5. Publicar los resultados en el panel de Azure DevOps
+- task: PublishTestResults@2
+  displayName: 'Publicar Resultados en Azure Test Plans'
+  inputs:
+    testResultsFormat: 'JUnit' # Maven Surefire exporta nativamente en formato JUnit XML
+    testResultsFiles: '**/target/surefire-reports/TEST-*.xml'
+    failTaskOnFailedTests: true
