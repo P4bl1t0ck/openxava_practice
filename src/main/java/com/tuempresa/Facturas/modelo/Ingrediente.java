@@ -9,6 +9,7 @@ import org.openxava.annotations.View;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.DecimalMin;
@@ -23,6 +24,7 @@ import java.math.BigDecimal;
  * Cumple AGENTS.md: getters/setters generados por Lombok y campos con acceso de paquete.
  */
 @Entity
+@EntityListeners(IngredienteStockListener.class)
 @Getter
 @Setter
 @View(members = "Datos Principales [ nombre, unidadMedida, esInventariable ]; Control de Inventario [ stockActual, stockMinimo, costoUnitario ]")

@@ -1,15 +1,18 @@
 package com.tuempresa.Facturas.acciones;
 
 import com.tuempresa.Facturas.modelo.Ingrediente;
+import com.tuempresa.Facturas.modelo.HistorialHorneado;
 import com.tuempresa.Facturas.modelo.Producto;
 import com.tuempresa.Facturas.modelo.RecetaItem;
 import com.tuempresa.Facturas.vo.ResultadoSimulacion;
 import org.openxava.actions.ViewBaseAction;
 import org.openxava.jpa.XPersistence;
+import org.openxava.util.Users;
 
 import javax.persistence.EntityManager;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Date;
 
 /**
  * Acción de OpenXava que cierra el ciclo de vida transaccional de OptiPan:
@@ -85,6 +88,28 @@ public class ConfirmarHorneadoAccion extends ViewBaseAction {
             // Entidad gestionada: Hibernate incluye el UPDATE en el commit del request
         }
 
+        // Fuerza el disparo de @PostUpdate dentro de este flujo antes de cerrar la acción.
+        em.flush();
+        registrarHistorialHorneado(em, producto, cantidadAProducir, resultado);
+
         addMessage("optipan.horneado_confirmado", cantidadAProducir.intValue(), producto.getDescripcion());
+    }
+
+    private void registrarHistorialHorneado(EntityManager em,
+                                            Producto producto,
+                                            BigDecimal cantidadAProducir,
+                                            ResultadoSimulacion resultado) {
+        HistorialHorneado historial = new HistorialHorneado();
+        historial.setFechaHorneado(new Date());
+        historial.setUsuario(obtenerUsuarioActual());
+        historial.setProducto(producto);
+        historial.setCantidadHorneada(cantidadAProducir.intValue());
+        historial.setCodigoDiagnostico(resultado.getCodigoDiagnostico());
+        em.persist(historial);
+    }
+
+    private String obtenerUsuarioActual() {
+        String usuario = Users.getCurrent();
+        return usuario == null || usuario.trim().isEmpty() ? "sistema" : usuario;
     }
 }
