@@ -21,6 +21,8 @@
     	<class>com.openxava.naviox.model.User</class>
 		<class>com.openxava.naviox.model.LDAPConfiguration</class>
 		<class>com.tuempresa.Facturas.modelo.Cliente</class>
+		<class>com.tuempresa.Facturas.modelo.AlertaStock</class>
+		<class>com.tuempresa.Facturas.modelo.HistorialHorneado</class>
 		<class>com.tuempresa.Facturas.modelo.Prueba</class>
 		<properties>
 			<property name="javax.persistence.schema-generation.database.action" value="update"/>
@@ -49,6 +51,8 @@
     	<class>com.openxava.naviox.model.SSORecord</class>
     	<class>com.openxava.naviox.model.User</class>
 		<class>com.openxava.naviox.model.LDAPConfiguration</class>
+		<class>com.tuempresa.Facturas.modelo.AlertaStock</class>
+		<class>com.tuempresa.Facturas.modelo.HistorialHorneado</class>
 		<class>com.tuempresa.Facturas.modelo.Prueba</class>
 		<!--Codigo para la conexion con la base de datos de MySQL-->
 		<properties>

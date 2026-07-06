@@ -208,6 +208,12 @@
 					<mainClass>${project.groupId}.${project.artifactId}.run.${project.artifactId}</mainClass>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<groupId>org.openxava</groupId>
+				<artifactId>openxava-maven-plugin</artifactId>
+				<version>${openxava.version}</version>
+			</plugin>
 		</plugins>
 	</build>
 
