@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+    name="orden_compra_automatica" pageWidth="595" pageHeight="842" columnWidth="555"
+    leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+
+    <parameter name="titulo" class="java.lang.String"/>
+    <parameter name="fechaGeneracion" class="java.util.Date"/>
+    <parameter name="totalAlertas" class="java.lang.Integer"/>
+
+    <field name="codigoIngrediente" class="java.lang.String"/>
+    <field name="nombreIngrediente" class="java.lang.String"/>
+    <field name="unidadMedida" class="java.lang.String"/>
+    <field name="stockActual" class="java.math.BigDecimal"/>
+    <field name="stockMinimo" class="java.math.BigDecimal"/>
+    <field name="cantidadSugeridaCompra" class="java.math.BigDecimal"/>
+    <field name="prioridad" class="java.lang.String"/>
+    <field name="mensaje" class="java.lang.String"/>
+    <field name="fechaAlerta" class="java.util.Date"/>
+
+    <title>
+        <band height="60">
+            <textField>
+                <reportElement x="0" y="0" width="555" height="24"/>
+                <textElement textAlignment="Center">
+                    <font size="16" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{titulo}]]></textFieldExpression>
+            </textField>
+            <textField pattern="dd/MM/yyyy HH:mm">
+                <reportElement x="0" y="30" width="270" height="18"/>
+                <textFieldExpression><![CDATA[$P{fechaGeneracion}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="380" y="30" width="175" height="18"/>
+                <textElement textAlignment="Right"/>
+                <textFieldExpression><![CDATA["Alertas incluidas: " + $P{totalAlertas}]]></textFieldExpression>
+            </textField>
+        </band>
+    </title>
+
+    <columnHeader>
+        <band height="20">
+            <staticText>
+                <reportElement x="0" y="0" width="55" height="20"/>
+                <textElement><font isBold="true"/></textElement>
+                <text><![CDATA[Codigo]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="55" y="0" width="110" height="20"/>
+                <textElement><font isBold="true"/></textElement>
+                <text><![CDATA[Ingrediente]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="165" y="0" width="55" height="20"/>
+                <textElement><font isBold="true"/></textElement>
+                <text><![CDATA[Unidad]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="220" y="0" width="60" height="20"/>
+                <textElement><font isBold="true"/></textElement>
+                <text><![CDATA[Stock]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="280" y="0" width="70" height="20"/>
+                <textElement><font isBold="true"/></textElement>
+                <text><![CDATA[Minimo]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="350" y="0" width="70" height="20"/>
+                <textElement><font isBold="true"/></textElement>
+                <text><![CDATA[Sugerido]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="420" y="0" width="55" height="20"/>
+                <textElement><font isBold="true"/></textElement>
+                <text><![CDATA[Prioridad]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="475" y="0" width="80" height="20"/>
+                <textElement><font isBold="true"/></textElement>
+                <text><![CDATA[Fecha alerta]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+
+    <detail>
+        <band height="38">
+            <textField>
+                <reportElement x="0" y="0" width="55" height="18"/>
+                <textFieldExpression><![CDATA[$F{codigoIngrediente}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="55" y="0" width="110" height="18"/>
+                <textFieldExpression><![CDATA[$F{nombreIngrediente}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="165" y="0" width="55" height="18"/>
+                <textFieldExpression><![CDATA[$F{unidadMedida}]]></textFieldExpression>
+            </textField>
+            <textField pattern="#,##0.####">
+                <reportElement x="220" y="0" width="60" height="18"/>
+                <textFieldExpression><![CDATA[$F{stockActual}]]></textFieldExpression>
+            </textField>
+            <textField pattern="#,##0.####">
+                <reportElement x="280" y="0" width="70" height="18"/>
+                <textFieldExpression><![CDATA[$F{stockMinimo}]]></textFieldExpression>
+            </textField>
+            <textField pattern="#,##0.####">
+                <reportElement x="350" y="0" width="70" height="18"/>
+                <textFieldExpression><![CDATA[$F{cantidadSugeridaCompra}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="420" y="0" width="55" height="18"/>
+                <textFieldExpression><![CDATA[$F{prioridad}]]></textFieldExpression>
+            </textField>
+            <textField pattern="dd/MM/yyyy">
+                <reportElement x="475" y="0" width="80" height="18"/>
+                <textFieldExpression><![CDATA[$F{fechaAlerta}]]></textFieldExpression>
+            </textField>
+            <textField isStretchWithOverflow="true">
+                <reportElement x="0" y="20" width="555" height="18"/>
+                <textFieldExpression><![CDATA[$F{mensaje}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+</jasperReport>

@@ -22,4 +22,10 @@ https://github.com/openxava/openxava/blob/master/openxavatest/src/main/resources
                 clase="com.tuempresa.Facturas.acciones.ConfirmarHorneadoAccion"/>
     </controlador>
 
+    <controlador nombre="AlertaStockReporte">
+        <hereda-de controlador="Typical"/>
+        <accion nombre="generarOrdenCompraAutomatica" icono="report" modo="list"
+                clase="com.tuempresa.Facturas.acciones.GenerarOrdenCompraAutomaticaAction"/>
+    </controlador>
+
 </controladores>

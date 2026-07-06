@@ -43,6 +43,12 @@
 			<artifactId>mysql-connector-j</artifactId>		
     		<version>9.6.0</version>
 		</dependency>
+
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>6.21.5</version>
+		</dependency>
 		
 		
 		<!-- PostgreSQL 

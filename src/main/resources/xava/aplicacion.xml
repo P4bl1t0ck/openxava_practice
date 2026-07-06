@@ -21,10 +21,15 @@
         <modelo nombre="Prediccion"/>
         <controlador nombre="Typical"/>
     </modulo>
+
+    <modulo nombre="CuadreAdministrativo">
+        <modelo nombre="CuadreAdministrativo"/>
+        <controlador nombre="Typical"/>
+    </modulo>
     
     <modulo nombre="AlertaStock">
         <modelo nombre="AlertaStock"/>
-        <controlador nombre="Typical"/>
+        <controlador nombre="AlertaStockReporte"/>
     </modulo>
 
 </aplicacion>
