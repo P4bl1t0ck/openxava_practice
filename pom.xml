@@ -215,11 +215,7 @@
 				</configuration>
 			</plugin>
 
-			<plugin>
-				<groupId>org.openxava</groupId>
-				<artifactId>openxava-maven-plugin</artifactId>
-				<version>${openxava.version}</version>
-			</plugin>
+
 		</plugins>
 	</build>
 

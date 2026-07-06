@@ -26,6 +26,7 @@
 		<class>com.tuempresa.Facturas.modelo.CierreDiario</class>
 		<class>com.tuempresa.Facturas.modelo.Prediccion</class>
 		<class>com.tuempresa.Facturas.modelo.AlertaStock</class>
+		<class>com.tuempresa.Facturas.modelo.HistorialHorneado</class>
 		<properties>
 			<property name="javax.persistence.schema-generation.database.action" value="update"/>
 
