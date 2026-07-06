@@ -27,6 +27,7 @@
 		<class>com.tuempresa.Facturas.modelo.Prediccion</class>
 		<class>com.tuempresa.Facturas.modelo.AlertaStock</class>
 		<class>com.tuempresa.Facturas.modelo.HistorialHorneado</class>
+		<class>com.tuempresa.Facturas.modelo.CuadreAdministrativo</class>
 		<properties>
 			<property name="javax.persistence.schema-generation.database.action" value="update"/>
 
@@ -52,8 +53,9 @@
     	<class>com.openxava.naviox.model.Role</class>
     	<class>com.openxava.naviox.model.SessionRecord</class>
     	<class>com.openxava.naviox.model.SSORecord</class>
-    	<class>com.openxava.naviox.model.User</class>
+		<class>com.openxava.naviox.model.User</class>
 		<class>com.openxava.naviox.model.LDAPConfiguration</class>
+		<class>com.tuempresa.Facturas.modelo.CuadreAdministrativo</class>
 		<!--Codigo para la conexion con la base de datos de MySQL-->
 		<properties>
 			<property name="javax.persistence.schema-generation.database.action" value="update"/>
