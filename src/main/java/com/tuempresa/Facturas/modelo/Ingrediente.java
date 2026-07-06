@@ -6,6 +6,11 @@ import lombok.Getter;
 import lombok.Setter;
 import java.math.BigDecimal;
 
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
 @Entity
 @Getter
 @Setter
@@ -27,12 +32,17 @@ public class Ingrediente {
 
     boolean esInventariable;
 
-    @Required
+    @NotNull
+    @Min(0)
+    @Digits(integer = 8, fraction = 4)
     BigDecimal stockActual;
 
-    @Required
+    @Min(0)
+    @Digits(integer = 8, fraction = 4)
     BigDecimal stockMinimo;
 
-    @Required
+    @NotNull
+    @DecimalMin("0.01")
+    @Digits(integer = 8, fraction = 4)
     BigDecimal costoUnitario;
 }
