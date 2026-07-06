@@ -23,20 +23,20 @@ public class CierreDiario {
     @GenericGenerator(name = "system-uuid", strategy = "uuid2")
     @Column(length = 36)
     @Hidden
-    private String id;
+    String id;
 
     @Required
-    private Date fechaCierre;
+    Date fechaCierre;
 
     @Column(length = 20)
     @Required
-    private String estado;
+    String estado;
 
     @Column(length = 50)
-    private String auditadoPor;
+    String auditadoPor;
 
-    // Composición estricta de los detalles de venta/mermas
-    @OneToMany(mappedBy = "cierreDiario", cascade = CascadeType.ALL, orphanRemoval = true)
+    // Composicion estricta de los detalles de venta/mermas
+    @ElementCollection
     @ListProperties("producto.nombre, cantidadVendida, cantidadMerma")
-    private Collection<DetalleCierre> detalleCierres = new ArrayList<>(); // [cite: 165, 194]
+    Collection<DetalleCierre> detalleCierres = new ArrayList<>();
 }

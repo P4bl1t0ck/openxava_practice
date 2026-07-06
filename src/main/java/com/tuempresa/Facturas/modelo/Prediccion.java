@@ -9,11 +9,12 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Getter@Setter
+@Getter
+@Setter
 @View(members =
-        "Datos de Predicción [ fecha, producto ]; " +
-                "Cálculo Algorítmico [ cantidadSugerida PMP ]; " +
-                "Ajuste Manual (Override) [ cantidadManual, justificacion ]"
+        "Datos de Prediccion [ fecha, producto ]; " +
+        "Calculo Algoritmico [ cantidadSugerida ]; " +
+        "Ajuste Manual (Override) [ cantidadManual, justificacion ]"
 )
 public class Prediccion {
     @Id
@@ -21,28 +22,25 @@ public class Prediccion {
     @GenericGenerator(name = "system-uuid", strategy = "uuid2")
     @Column(length = 36)
     @Hidden
-    private String id;
+    String id;
 
     @Required
     @DefaultValueCalculator(org.openxava.calculators.CurrentDateCalculator.class)
-    private Date fecha;
+    Date fecha;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @DescriptionsList(descriptionProperties = "descripcion") // Conectado al Producto del tutorial
-    private Producto producto;
+    @DescriptionsList(descriptionProperties = "descripcion")
+    Producto producto;
 
     @Required
     @ReadOnly
     @Column(length = 6)
-    //Label("Cantidad Sugerida (PMP 21 días)")
-    private int cantidadSugerida;
+    int cantidadSugerida;
 
     @Column(length = 6)
-    //Label("Cantidad Manual (Override)")
-    private Integer cantidadManual; // Permite al administrador ajustar la predicción
+    Integer cantidadManual;
 
     @TextArea
     @Column(length = 200)
-    //Label("Justificación del Cambio")
-    private String justificacion;
+    String justificacion;
 }

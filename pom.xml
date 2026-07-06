@@ -37,13 +37,13 @@
 		aquí tu mismo.
 		-->
 		
-		<!-- MySQL 
+		
 		<dependency>
 			<groupId>com.mysql</groupId>
 			<artifactId>mysql-connector-j</artifactId>		
     		<version>9.6.0</version>
 		</dependency>
-		-->
+		
 		
 		<!-- PostgreSQL 
 		<dependency>
@@ -124,6 +124,12 @@
 	                </annotationProcessorPaths>
 	            </configuration>
 	        </plugin>
+
+			<plugin>
+				<groupId>org.openxava</groupId>
+				<artifactId>openxava-maven-plugin</artifactId>
+				<version>${openxava.version}</version>
+			</plugin>
         			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

@@ -1,22 +1,30 @@
-<?xml version = "1.0" encoding = "ISO-8859-1"?>
-
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE aplicacion SYSTEM "dtds/aplicacion.dtd">
-
 <aplicacion nombre="Facturas"> 
-	
-	<!--
-	Un m�dulo por defecto se asume para cada
-	controlador en <modulo-defecto/> 
-	-->
-	<modulo-defecto>		  
-		<controlador nombre="Typical"/>		
-	</modulo-defecto>
-	
-	<!-- OptiPan: módulo de Producto con la acción de confirmación de horneado -->
-	<modulo nombre="Producto">
-		<modelo nombre="Producto"/>
-		<controlador nombre="Horneado"/>
-	</modulo>
+    
+    <modulo nombre="Producto">
+        <modelo nombre="Producto"/>
+        <controlador nombre="Typical"/>
+    </modulo>
+    
+    <modulo nombre="Ingrediente">
+        <modelo nombre="Ingrediente"/>
+        <controlador nombre="Typical"/>
+    </modulo>
+    
+    <modulo nombre="CierreDiario">
+        <modelo nombre="CierreDiario"/>
+        <controlador nombre="Typical"/>
+    </modulo>
+    
+    <modulo nombre="Prediccion">
+        <modelo nombre="Prediccion"/>
+        <controlador nombre="Typical"/>
+    </modulo>
+    
+    <modulo nombre="AlertaStock">
+        <modelo nombre="AlertaStock"/>
+        <controlador nombre="Typical"/>
+    </modulo>
 
 </aplicacion>
-

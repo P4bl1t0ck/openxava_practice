@@ -18,26 +18,25 @@ public class AlertaStock {
     @GenericGenerator(name = "system-uuid", strategy = "uuid2")
     @Column(length = 36)
     @Hidden
-    private String id;
+    String id;
 
     @Required
     @ReadOnly
-    private Date fechaAlerta;
+    Date fechaAlerta;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @DescriptionsList(descriptionProperties = "nombre") // Conectado a tus ingredientes
-    private Ingrediente ingrediente;
+    @DescriptionsList(descriptionProperties = "nombre")
+    Ingrediente ingrediente;
 
     @Required
     @Column(length = 15)
-    private String nivelAlerta; // E.g., "CRÍTICO", "MODERADO"
+    String nivelAlerta;
 
     @Required
-    @Stereotype("DINERO") // Para formatear decimales de stock de forma limpia
-    //Label("Stock Proyectado (3 días)")
-    private BigDecimal stockProyectadoTresDias;
+    @Stereotype("DINERO")
+    BigDecimal stockProyectadoTresDias;
 
     @Column(length = 150)
     @ReadOnly
-    private String mensaje;
+    String mensaje;
 }

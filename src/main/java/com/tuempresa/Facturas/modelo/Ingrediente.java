@@ -25,7 +25,7 @@ import java.math.BigDecimal;
 @Entity
 @Getter
 @Setter
-@View(members = "codigo, nombre; unidadMedida, costoUnitario; stockActual, stockMinimo; esInventariable")
+@View(members = "Datos Principales [ nombre, unidadMedida, esInventariable ]; Control de Inventario [ stockActual, stockMinimo, costoUnitario ]")
 public class Ingrediente {
 
     @Id

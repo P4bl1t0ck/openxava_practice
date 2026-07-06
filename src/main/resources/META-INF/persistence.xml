@@ -20,14 +20,18 @@
     	<class>com.openxava.naviox.model.SSORecord</class>
     	<class>com.openxava.naviox.model.User</class>
 		<class>com.openxava.naviox.model.LDAPConfiguration</class>
-		<class>com.tuempresa.Facturas.modelo.Cliente</class>
-		<class>com.tuempresa.Facturas.modelo.Prueba</class>
+		<class>com.tuempresa.Facturas.modelo.Producto</class>
+		<class>com.tuempresa.Facturas.modelo.Ingrediente</class>
+		<class>com.tuempresa.Facturas.modelo.RecetaItem</class>
+		<class>com.tuempresa.Facturas.modelo.CierreDiario</class>
+		<class>com.tuempresa.Facturas.modelo.Prediccion</class>
+		<class>com.tuempresa.Facturas.modelo.AlertaStock</class>
 		<properties>
 			<property name="javax.persistence.schema-generation.database.action" value="update"/>
 
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/openxava_db"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/Facturasdb"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>
-			<property name="javax.persistence.jdbc.password" value="1234"/>
+			<property name="javax.persistence.jdbc.password" value=""/>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
 
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
@@ -49,7 +53,6 @@
     	<class>com.openxava.naviox.model.SSORecord</class>
     	<class>com.openxava.naviox.model.User</class>
 		<class>com.openxava.naviox.model.LDAPConfiguration</class>
-		<class>com.tuempresa.Facturas.modelo.Prueba</class>
 		<!--Codigo para la conexion con la base de datos de MySQL-->
 		<properties>
 			<property name="javax.persistence.schema-generation.database.action" value="update"/>

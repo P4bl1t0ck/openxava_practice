@@ -13,16 +13,12 @@ import java.util.*;
 
 @Entity
 @Getter @Setter
-@View(members = 
-    "Datos Principales [ numero, descripcion; precio, categoria; autor ]; " +
-    "Multimedia y Notas { fotos; observaciones }; " +
-    "Componentes OptiPan { recetaItems; costoTotal }; " +
-    "Algoritmo Caja Blanca { simulacionViabilidad }" // <-- Pestaña para tu tarea
-)
+@View(members = "Informacion General [ descripcion, precio ]; Costos [ costoTotal ]; Receta [ recetaItems ]")
 public class Producto {
 
     @Id
     @Column(length = 6)
+    @Hidden
     int numero;
 
     @Column(length = 50)
@@ -30,9 +26,6 @@ public class Producto {
     @Size(min = 3, max = 50) // Caja Negra: bloquea nombres demasiado cortos o con desbordamiento
     String descripcion;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
-    @DescriptionsList(descriptionProperties = "descripcion")
-    Categoria categoria;
 
     @Money
     @Required
@@ -47,9 +40,6 @@ public class Producto {
     @TextArea
     String observaciones;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @DescriptionsList
-    Autor autor;
 
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
     @ListProperties("ingrediente.nombre, cantidadGramos, costoItem")
@@ -57,6 +47,7 @@ public class Producto {
 
     @ReadOnly
     @Stereotype("MONEY")
+    @Depends("recetaItems")
     public BigDecimal getCostoTotal() {
         BigDecimal total = BigDecimal.ZERO;
         if (recetaItems != null) {
