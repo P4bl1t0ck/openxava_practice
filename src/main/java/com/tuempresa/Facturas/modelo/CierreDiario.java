@@ -37,6 +37,6 @@ public class CierreDiario {
 
     // Composicion estricta de los detalles de venta/mermas
     @ElementCollection
-    @ListProperties("producto.nombre, cantidadVendida, cantidadMerma")
+    @ListProperties("producto.descripcion, cantidadVendida, cantidadMerma")
     Collection<DetalleCierre> detalleCierres = new ArrayList<>();
 }

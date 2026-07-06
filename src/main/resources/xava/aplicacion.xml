@@ -4,7 +4,7 @@
     
     <modulo nombre="Producto">
         <modelo nombre="Producto"/>
-        <controlador nombre="Typical"/>
+        <controlador nombre="Horneado"/>
     </modulo>
     
     <modulo nombre="Ingrediente">

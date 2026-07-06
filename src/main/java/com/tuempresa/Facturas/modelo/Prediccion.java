@@ -12,9 +12,9 @@ import java.util.Date;
 @Getter
 @Setter
 @View(members =
-        "Datos de Prediccion [ fecha, producto ]; " +
-        "Calculo Algoritmico [ cantidadSugerida ]; " +
-        "Ajuste Manual (Override) [ cantidadManual, justificacion ]"
+        "DatosDePrediccion [ fecha, producto ]; " +
+        "CalculoAlgoritmico [ cantidadSugerida ]; " +
+        "AjusteManual [ cantidadManual, justificacion ]"
 )
 public class Prediccion {
     @Id
@@ -32,9 +32,12 @@ public class Prediccion {
     @DescriptionsList(descriptionProperties = "descripcion")
     Producto producto;
 
-    @Required
     @ReadOnly
     @Column(length = 6)
+    @DefaultValueCalculator(
+        value = com.tuempresa.Facturas.calculadores.CalculadorPrediccionPMP.class,
+        properties = @PropertyValue(name = "productoId", from = "producto.numero")
+    )
     int cantidadSugerida;
 
     @Column(length = 6)

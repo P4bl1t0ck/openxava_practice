@@ -15,12 +15,11 @@ import java.util.Date;
 public class AlertaStock {
     @Id
     @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
-    @Column(length = 36)
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @Column(length = 32)
     @Hidden
     String id;
 
-    @Required
     @ReadOnly
     Date fechaAlerta;
 

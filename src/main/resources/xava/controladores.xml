@@ -15,12 +15,11 @@ https://github.com/openxava/openxava/blob/master/openxavatest/src/main/resources
 
 <controladores>
 
-    <!-- OptiPan: confirma una orden de horneado y descuenta el inventario (US-003) 
+    <!-- OptiPan: confirma una orden de horneado y descuenta el inventario (US-003) -->
     <controlador nombre="Horneado">
         <hereda-de controlador="Typical"/>
         <accion nombre="confirmarHorneado" icono="check-bold" modo="detail"
                 clase="com.tuempresa.Facturas.acciones.ConfirmarHorneadoAccion"/>
     </controlador>
-    -->
 
 </controladores>

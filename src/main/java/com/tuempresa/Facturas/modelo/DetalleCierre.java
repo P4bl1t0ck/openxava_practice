@@ -7,13 +7,18 @@ import org.openxava.annotations.Required;
 
 import javax.persistence.*;
 
+import org.openxava.annotations.NoFrame;
+import org.openxava.annotations.View;
+
 @Embeddable
 @Getter
 @Setter
+@View(members = "producto, cantidadVendida, cantidadMerma")
 public class DetalleCierre {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @DescriptionsList(descriptionProperties = "nombre")
+    @DescriptionsList(descriptionProperties = "descripcion")
+    @NoFrame
     Producto producto;
 
     @Required

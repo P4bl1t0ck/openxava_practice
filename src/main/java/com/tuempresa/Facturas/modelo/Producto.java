@@ -13,10 +13,11 @@ import java.util.*;
 
 @Entity
 @Getter @Setter
-@View(members = "Informacion General [ descripcion, precio ]; Costos [ costoTotal ]; Receta [ recetaItems ]")
+@View(members = "InformacionGeneral [ descripcion, precio ]; Costos [ costoTotal ]; Receta [ recetaItems ]")
 public class Producto {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(length = 6)
     @Hidden
     int numero;
